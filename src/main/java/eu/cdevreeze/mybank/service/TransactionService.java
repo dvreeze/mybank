@@ -1,0 +1,37 @@
+package eu.cdevreeze.mybank.service;
+
+import eu.cdevreeze.mybank.model.Transaction;
+
+import java.time.Instant;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+public class TransactionService {
+
+    private final List<Transaction> transactions = new CopyOnWriteArrayList<>();
+
+    public Transaction create(int amount, Instant timestamp, String reference) {
+        Transaction transaction = new Transaction(
+                UUID.randomUUID().toString(),
+                amount,
+                timestamp,
+                reference
+        );
+        transactions.add(transaction);
+        return transaction;
+    }
+
+    public Optional<Transaction> findById(String id) {
+        return transactions.stream().filter(t -> t.id().equals(id)).findFirst();
+    }
+
+    public List<Transaction> findByReference(String reference) {
+        return transactions.stream().filter(t -> t.reference().equalsIgnoreCase(reference)).toList();
+    }
+
+    public List<Transaction> findAll() {
+        return List.copyOf(transactions);
+    }
+}

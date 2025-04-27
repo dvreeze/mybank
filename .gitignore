@@ -7,3 +7,5 @@
 *.ipr
 /out/
 
+### Misc
+dependency-reduced-pom.xml
