@@ -1,6 +1,7 @@
 package eu.cdevreeze.mybank.service;
 
 import eu.cdevreeze.mybank.model.Transaction;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -14,12 +15,19 @@ public class TransactionService {
 
     private final List<Transaction> transactions = new CopyOnWriteArrayList<>();
 
+    private final String bankSlogan;
+
+    public TransactionService(@Value("${bank.slogan}") String bankSlogan) {
+        this.bankSlogan = bankSlogan;
+    }
+
     public Transaction create(int amount, Instant timestamp, String reference) {
         Transaction transaction = new Transaction(
                 UUID.randomUUID().toString(),
                 amount,
                 timestamp,
-                reference
+                reference,
+                bankSlogan
         );
         transactions.add(transaction);
         return transaction;

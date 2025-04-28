@@ -6,5 +6,6 @@ public record Transaction(
         String id,
         int amount,
         Instant timestamp,
-        String reference) {
+        String reference,
+        String bankSlogan) {
 }
