@@ -6,11 +6,13 @@ import eu.cdevreeze.mybank.service.TransactionService;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.Instant;
 import java.util.*;
 
+@Component
 public class TransactionServlet extends HttpServlet {
 
     private static final String ID = "id";

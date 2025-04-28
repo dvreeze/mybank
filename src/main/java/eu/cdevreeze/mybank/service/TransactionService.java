@@ -1,6 +1,7 @@
 package eu.cdevreeze.mybank.service;
 
 import eu.cdevreeze.mybank.model.Transaction;
+import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+@Service
 public class TransactionService {
 
     private final List<Transaction> transactions = new CopyOnWriteArrayList<>();
