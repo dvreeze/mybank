@@ -7,17 +7,31 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import eu.cdevreeze.mybank.service.TransactionService;
 import eu.cdevreeze.mybank.web.TransactionServlet;
 import eu.cdevreeze.mybank.web.WelcomeServlet;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-public class Application {
+@Configuration
+public class MyBankApplicationConfiguration {
 
-    public static final ObjectMapper objectMapper = getObjectMapper();
+    @Bean
+    public ObjectMapper objectMapper() {
+        return getObjectMapper();
+    }
 
-    public static final TransactionService transactionService = new TransactionService();
+    @Bean
+    public TransactionService transactionService() {
+        return new TransactionService();
+    }
 
-    public static final WelcomeServlet welcomeServlet = new WelcomeServlet();
+    @Bean
+    public WelcomeServlet welcomeServlet() {
+        return new WelcomeServlet();
+    }
 
-    public static final TransactionServlet transactionServlet =
-            new TransactionServlet(transactionService, objectMapper);
+    @Bean
+    public TransactionServlet transactionServlet(/* TransactionService transactionService, ObjectMapper objectMapper */) {
+        return new TransactionServlet(/* transactionService, objectMapper */);
+    }
 
     private static ObjectMapper getObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();

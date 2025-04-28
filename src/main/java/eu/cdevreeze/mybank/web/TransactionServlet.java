@@ -6,6 +6,7 @@ import eu.cdevreeze.mybank.service.TransactionService;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -17,13 +18,15 @@ public class TransactionServlet extends HttpServlet {
     private static final String REFERENCE = "reference";
     private static final String JSON_CONTENT_TYPE = "application/json; charset=UTF-8";
 
-    private final TransactionService transactionService;
-    private final ObjectMapper objectMapper;
+    @Autowired private /* final */ TransactionService transactionService;
+    @Autowired private /* final */ ObjectMapper objectMapper;
 
+    /*
     public TransactionServlet(TransactionService transactionService, ObjectMapper objectMapper) {
         this.transactionService = transactionService;
         this.objectMapper = objectMapper;
     }
+    */
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
