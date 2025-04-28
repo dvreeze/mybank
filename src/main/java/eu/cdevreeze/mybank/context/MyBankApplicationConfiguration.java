@@ -29,8 +29,8 @@ public class MyBankApplicationConfiguration {
     }
 
     @Bean
-    public TransactionServlet transactionServlet(/* TransactionService transactionService, ObjectMapper objectMapper */) {
-        return new TransactionServlet(/* transactionService, objectMapper */);
+    public TransactionServlet transactionServlet(TransactionService transactionService, ObjectMapper objectMapper) {
+        return new TransactionServlet(transactionService, objectMapper);
     }
 
     private static ObjectMapper getObjectMapper() {
