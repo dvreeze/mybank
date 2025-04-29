@@ -3,8 +3,6 @@ package eu.cdevreeze.mybank.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.cdevreeze.mybank.model.Transaction;
 import eu.cdevreeze.mybank.service.TransactionService;
-import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -20,24 +18,12 @@ public class TransactionServlet extends HttpServlet {
     private static final String REFERENCE = "reference";
     private static final String JSON_CONTENT_TYPE = "application/json; charset=UTF-8";
 
-    private TransactionService transactionService;
-    private ObjectMapper objectMapper;
+    private final TransactionService transactionService;
+    private final ObjectMapper objectMapper;
 
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        // I'd rather do this from a ServletContextListener
-        SpringContainerHolder.getInstance().initOnce();
-        ApplicationContext appContext = SpringContainerHolder.getInstance().getContainer();
+    public TransactionServlet(ApplicationContext appContext) {
         this.transactionService = appContext.getBean(TransactionService.class);
         this.objectMapper = appContext.getBean(ObjectMapper.class);
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-        // I'd rather do this from a ServletContextListener
-        SpringContainerHolder.getInstance().destroyOnce();
     }
 
     @Override
