@@ -1,22 +1,16 @@
 package eu.cdevreeze.mybank;
 
-import eu.cdevreeze.mybank.context.MyBankApplicationConfiguration;
+import eu.cdevreeze.mybank.web.SpringBootstrappingServletContextListener;
 import eu.cdevreeze.mybank.web.TransactionServlet;
 import eu.cdevreeze.mybank.web.WelcomeServlet;
 import org.apache.catalina.Context;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.Wrapper;
 import org.apache.catalina.startup.Tomcat;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.support.GenericApplicationContext;
 
 public class ApplicationLauncher {
 
     public static void main(String[] args) throws LifecycleException {
-        GenericApplicationContext appContext =
-                new AnnotationConfigApplicationContext(MyBankApplicationConfiguration.class);
-        appContext.registerShutdownHook();
-
         int port = Integer.parseInt(System.getProperty("server.port", "8080"));
         System.out.println("Port: " + port);
 
@@ -26,10 +20,13 @@ public class ApplicationLauncher {
 
         Context context = tomcat.addContext("", null);
 
+        // On Context creation, the Spring container will be created (accessible through SpringContainerHolder)
+        context.getServletContext().addListener(new SpringBootstrappingServletContextListener());
+
         Wrapper welcomeServlet = Tomcat.addServlet(
                 context,
                 "welcomeServlet",
-                appContext.getBean(WelcomeServlet.class)
+                new WelcomeServlet()
         );
         welcomeServlet.setLoadOnStartup(1);
         welcomeServlet.addMapping("/*");
@@ -37,7 +34,7 @@ public class ApplicationLauncher {
         Wrapper transactionServlet = Tomcat.addServlet(
                 context,
                 "transactionServlet",
-                appContext.getBean(TransactionServlet.class)
+                new TransactionServlet()
         );
         transactionServlet.setLoadOnStartup(1);
         transactionServlet.addMapping("/transactions");
