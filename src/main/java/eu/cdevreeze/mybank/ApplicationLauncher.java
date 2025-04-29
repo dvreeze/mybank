@@ -1,6 +1,5 @@
 package eu.cdevreeze.mybank;
 
-import eu.cdevreeze.mybank.web.SpringBootstrappingServletContextListener;
 import eu.cdevreeze.mybank.web.TransactionServlet;
 import eu.cdevreeze.mybank.web.WelcomeServlet;
 import org.apache.catalina.Context;
@@ -19,9 +18,6 @@ public class ApplicationLauncher {
         tomcat.getConnector();
 
         Context context = tomcat.addContext("", null);
-
-        // On Context creation, the Spring container will be created (accessible through SpringContainerHolder)
-        context.getServletContext().addListener(new SpringBootstrappingServletContextListener());
 
         Wrapper welcomeServlet = Tomcat.addServlet(
                 context,

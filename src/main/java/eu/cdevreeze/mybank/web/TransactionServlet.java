@@ -26,9 +26,18 @@ public class TransactionServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
+        // I'd rather do this from a ServletContextListener
+        SpringContainerHolder.getInstance().initOnce();
         ApplicationContext appContext = SpringContainerHolder.getInstance().getContainer();
         this.transactionService = appContext.getBean(TransactionService.class);
         this.objectMapper = appContext.getBean(ObjectMapper.class);
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        // I'd rather do this from a ServletContextListener
+        SpringContainerHolder.getInstance().destroyOnce();
     }
 
     @Override

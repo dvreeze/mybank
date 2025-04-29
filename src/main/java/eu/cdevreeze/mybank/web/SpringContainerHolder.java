@@ -20,24 +20,26 @@ public class SpringContainerHolder {
     private SpringContainerHolder() {
     }
 
-    public void init() {
+    public void initOnce() {
         optionalAppContextReference.updateAndGet(v -> {
-            if (v.isPresent()) {
-                throw new IllegalStateException("Spring container already initialized");
+            if (v.isEmpty()) {
+                GenericApplicationContext appContext =
+                        new AnnotationConfigApplicationContext(MyBankApplicationConfiguration.class);
+                appContext.registerShutdownHook();
+                return Optional.of(appContext);
+            } else {
+                return v;
             }
-            GenericApplicationContext appContext =
-                    new AnnotationConfigApplicationContext(MyBankApplicationConfiguration.class);
-            appContext.registerShutdownHook();
-            return Optional.of(appContext);
         });
     }
 
-    public void destroy() {
+    public void destroyOnce() {
         optionalAppContextReference.getAndUpdate(v -> {
             if (v.isEmpty()) {
-                throw new IllegalStateException("Spring container already destroyed");
+                return v;
+            } else {
+                return Optional.empty();
             }
-            return Optional.empty();
         });
     }
 
