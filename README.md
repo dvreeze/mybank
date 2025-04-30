@@ -41,3 +41,19 @@ curl -X POST \
   -d "amount=50&reference=eating+out" \
   http://localhost:8090/transactions
 ```
+
+## The plain Spring IOC servlet-based implementation (without database) of the mybank application
+
+See above for some curl commands to "get" or "post" transactions.
+
+## The Spring Web-MVC implementation (without database) of the mybank application
+
+The "post" request now becomes:
+
+```shell
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{ "amount": 50, "reference": "eating out" }' \
+  http://localhost:8090/transactions
+```
