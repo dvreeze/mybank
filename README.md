@@ -48,12 +48,22 @@ See above for some curl commands to "get" or "post" transactions.
 
 ## The Spring Web-MVC implementation (without database) of the mybank application
 
-The "post" request now becomes:
+The POST request now becomes:
 
 ```shell
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
   -d '{ "amount": 50, "reference": "eating out" }' \
+  http://localhost:8090/transactions
+```
+
+Try out validation errors with a POST request such as:
+
+```shell
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{ "amount": 0, "reference": "" }' \
   http://localhost:8090/transactions
 ```
