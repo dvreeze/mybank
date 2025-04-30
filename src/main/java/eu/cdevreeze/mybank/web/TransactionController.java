@@ -17,6 +17,8 @@ import java.util.Optional;
 @Validated
 public class TransactionController {
 
+    // TODO XML support as well (via content negotiation? I don't want the same DTOs mapping to both JSON and XML)
+
     private final TransactionService transactionService;
 
     public TransactionController(TransactionService transactionService) {
