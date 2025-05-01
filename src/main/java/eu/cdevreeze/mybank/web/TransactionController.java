@@ -17,7 +17,8 @@ import java.util.Optional;
 @Validated
 public class TransactionController {
 
-    // TODO XML support as well (via content negotiation? I don't want the same DTOs mapping to both JSON and XML)
+    // Jackson supports JSON and XML serialization for the same data.
+    // See https://stackify.com/java-xml-jackson/.
 
     private final TransactionService transactionService;
 
@@ -25,26 +26,41 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @GetMapping(value = "/transactions", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            value = "/transactions",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
     public List<Transaction> findAll() {
         return transactionService.findAll();
     }
 
-    @GetMapping(value = "/transactions", params = "reference", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            value = "/transactions",
+            params = "reference",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
     public List<Transaction> findByReference(
             @RequestParam("reference") @NotBlank String reference
     ) {
         return transactionService.findByReference(reference);
     }
 
-    @GetMapping(value = "/transactions", params = "id", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(
+            value = "/transactions",
+            params = "id",
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
     public Optional<Transaction> findById(
             @RequestParam("id") @NotBlank String id
     ) {
         return transactionService.findById(id);
     }
 
-    @PostMapping(value = "/transactions", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(
+            value = "/transactions",
+            consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}
+    )
     public Transaction create(
             @RequestBody @Valid TransactionDto transactionDto
     ) {

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
@@ -16,6 +17,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @PropertySource("classpath:/application.properties")
 @EnableWebMvc
 public class ApplicationConfiguration {
+
+    // The EnableWebMvc annotation is needed here for automatically finding and using converters to JSON/XML,
+    // provided Jackson is on the classpath
 
     @Bean
     public ObjectMapper objectMapper() {
@@ -25,5 +29,13 @@ public class ApplicationConfiguration {
         objectMapper.registerModule(new JavaTimeModule());
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         return objectMapper;
+    }
+
+    // The following BeanPostProcessor is needed in order for JSR 303 annotations on controller method arguments to work
+    // Moreover, the Controller class needs to be annotated with the (Spring) Validated annotation
+
+    @Bean
+    public MethodValidationPostProcessor methodValidationPostProcessor() {
+        return new MethodValidationPostProcessor();
     }
 }

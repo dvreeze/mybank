@@ -42,10 +42,16 @@
             <version>${jackson.version}</version>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>2.15.3</version>
+        </dependency>
+        <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>8.0.1.Final</version>
         </dependency>
+        <!-- Note we need expressly too in order for hibernate-validator to work -->
         <dependency>
             <groupId>org.glassfish.expressly</groupId>
             <artifactId>expressly</artifactId>
