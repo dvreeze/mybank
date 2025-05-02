@@ -46,7 +46,7 @@ curl -X POST \
 
 See above for some curl commands to "get" or "post" transactions.
 
-## The Spring Web-MVC implementation (without database) of the mybank application
+## The Spring Web-MVC REST implementation (without database) of the mybank application
 
 The POST request now becomes:
 
@@ -65,5 +65,18 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
   -d '{ "amount": 0, "reference": "" }' \
+  http://localhost:8090/transactions
+```
+
+## The Spring Web-MVC implementation using Thymeleaf (without database) of the mybank application
+
+Note that a "receivingUserId" has been added to the Transaction model entity. So the POST request
+above becomes (for user Chris):
+
+```shell
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{ "amount": 50, "reference": "eating out", "receivingUser": "Chris" }' \
   http://localhost:8090/transactions
 ```
