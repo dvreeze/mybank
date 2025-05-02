@@ -80,3 +80,7 @@ curl -X POST \
   -d '{ "amount": 50, "reference": "eating out", "receivingUserId": "Chris" }' \
   http://localhost:8090/transactions
 ```
+
+## The Spring JDBC and Web-MVC implementation using Thymeleaf of the mybank application
+
+This time the transaction data is persistent, so survives restarts of the application.
