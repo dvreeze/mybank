@@ -68,7 +68,7 @@ curl -X POST \
   http://localhost:8090/transactions
 ```
 
-## The Spring Web-MVC implementation using Thymeleaf (without database) of the mybank application
+## The Spring Web-MVC implementation (without database) of the mybank application
 
 Note that a "receivingUserId" has been added to the Transaction model entity. So the POST request
 above becomes (for user Chris):
@@ -81,6 +81,6 @@ curl -X POST \
   http://localhost:8090/transactions
 ```
 
-## The Spring JDBC and Web-MVC implementation using Thymeleaf of the mybank application
+## The Spring JDBC and Web-MVC implementation of the mybank application
 
 This time the transaction data is persistent, so survives restarts of the application.
