@@ -21,13 +21,14 @@ public class TransactionService {
         this.bankSlogan = bankSlogan;
     }
 
-    public Transaction create(int amount, Instant timestamp, String reference) {
+    public Transaction create(int amount, Instant timestamp, String reference, String receivingUserId) {
         Transaction transaction = new Transaction(
                 UUID.randomUUID().toString(),
                 amount,
                 timestamp,
                 reference,
-                bankSlogan
+                bankSlogan,
+                receivingUserId
         );
         transactions.add(transaction);
         return transaction;
@@ -39,6 +40,10 @@ public class TransactionService {
 
     public List<Transaction> findByReference(String reference) {
         return transactions.stream().filter(t -> t.reference().equalsIgnoreCase(reference)).toList();
+    }
+
+    public List<Transaction> findByReceivingUserId(String receivingUserId) {
+        return transactions.stream().filter(t -> t.receivingUser().equalsIgnoreCase(receivingUserId)).toList();
     }
 
     public List<Transaction> findAll() {

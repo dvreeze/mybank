@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Account</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Account page</h1>
+<p>Account of user <span th:text="${receivingUserId}" th:remove="tag">[User ID]</span></p>
+<h2>Transaction list</h2>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Timestamp</th>
+                <th>Reference</th>
+                <th>Amount</th>
+                <th>Bank slogan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="tr:  ${accountTransactions}">
+                <td th:text="${tr.id}">[id]</td>
+                <td th:text="${tr.timestamp}">[timestamp]</td>
+                <td th:text="${tr.reference}">[reference]</td>
+                <td th:text="${tr.amount}">[amount]</td>
+                <td th:text="${tr.bankSlogan}">[bank slogan]</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<hr />
+<h2>New transaction</h2>
+<form th:action="@{/account/{id}(id=${receivingUserId})}" th:object="${transactionForm}" method="post">
+    <p>Receiving user ID: <input type="text" th:field="*{receivingUserId}"/></p>
+    <p style="background-color:red" th:if="${#fields.hasErrors('receivingUserId')}" th:errors="*{receivingUserId}"></p>
+
+    <p>Amount: <input type="text" th:field="*{amount}"/></p>
+    <p style="background-color:red" th:if="${#fields.hasErrors('amount')}" th:errors="*{amount}"></p>
+
+    <p>Reference: <input type="text" th:field="*{reference}"/></p>
+    <p style="background-color:red" th:if="${#fields.hasErrors('reference')}" th:errors="*{reference}"></p>
+
+    <p><input type="submit" value="Submit"/></p>
+</form>
+</body>
+</html>

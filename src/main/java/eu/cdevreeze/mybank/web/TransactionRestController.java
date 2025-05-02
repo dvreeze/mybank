@@ -15,14 +15,14 @@ import java.util.Optional;
 
 @RestController
 @Validated
-public class TransactionController {
+public class TransactionRestController {
 
     // Jackson supports JSON and XML serialization for the same data.
     // See https://stackify.com/java-xml-jackson/.
 
     private final TransactionService transactionService;
 
-    public TransactionController(TransactionService transactionService) {
+    public TransactionRestController(TransactionService transactionService) {
         this.transactionService = transactionService;
     }
 
@@ -64,6 +64,11 @@ public class TransactionController {
     public Transaction create(
             @RequestBody @Valid TransactionDto transactionDto
     ) {
-        return transactionService.create(transactionDto.getAmount(), Instant.now(), transactionDto.getReference());
+        return transactionService.create(
+                transactionDto.getAmount(),
+                Instant.now(),
+                transactionDto.getReference(),
+                transactionDto.getReceivingUserId()
+        );
     }
 }
