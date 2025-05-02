@@ -77,6 +77,6 @@ above becomes (for user Chris):
 curl -X POST \
   -H "Content-Type: application/json" \
   -H "Accept: application/json" \
-  -d '{ "amount": 50, "reference": "eating out", "receivingUser": "Chris" }' \
+  -d '{ "amount": 50, "reference": "eating out", "receivingUserId": "Chris" }' \
   http://localhost:8090/transactions
 ```
