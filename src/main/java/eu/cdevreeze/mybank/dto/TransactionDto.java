@@ -1,12 +1,14 @@
 package eu.cdevreeze.mybank.dto;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
+
+import java.math.BigDecimal;
 
 public class TransactionDto {
 
-    @Positive
-    private int amount;
+    @NotNull
+    private BigDecimal amount;
 
     @NotBlank
     private String reference;
@@ -14,11 +16,11 @@ public class TransactionDto {
     @NotBlank
     private String receivingUserId;
 
-    public int getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

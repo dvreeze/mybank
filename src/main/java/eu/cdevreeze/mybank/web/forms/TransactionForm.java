@@ -1,17 +1,23 @@
 package eu.cdevreeze.mybank.web.forms;
 
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
+import java.math.BigDecimal;
 
 public class TransactionForm {
 
     @NotBlank
     private String receivingUserId;
 
-    @Positive
-    private int amount;
+    @NotNull
+    @DecimalMin("0.01")
+    private BigDecimal amount;
 
     @NotBlank
+    @Size(min = 1, max = 35)
     private String reference;
 
     public String getReceivingUserId() {
@@ -22,11 +28,11 @@ public class TransactionForm {
         this.receivingUserId = receivingUserId;
     }
 
-    public int getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

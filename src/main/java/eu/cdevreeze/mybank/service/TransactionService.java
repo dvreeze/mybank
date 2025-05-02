@@ -4,6 +4,7 @@ import eu.cdevreeze.mybank.model.Transaction;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -21,7 +22,7 @@ public class TransactionService {
         this.bankSlogan = bankSlogan;
     }
 
-    public Transaction create(int amount, Instant timestamp, String reference, String receivingUserId) {
+    public Transaction create(BigDecimal amount, Instant timestamp, String reference, String receivingUserId) {
         Transaction transaction = new Transaction(
                 UUID.randomUUID().toString(),
                 amount,
